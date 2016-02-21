@@ -1,31 +1,34 @@
+//Main Window class declaration.
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-const wxString VersionNumber="V0.1";
+#include <wx/wxprec.h>
+#ifndef WX_PRECOMP
+#include <wx/wx.h>
+#endif
 
-class MainApp: public wxApp
+#include "vAirRace.h"
+#include "Simulator.h"
+
+class MainWindow : public wxFrame
 {
 public:
-	virtual bool OnInit();
-};
+	MainWindow(wxString Screen);
+	~MainWindow();
 
-class MainFrame: public wxFrame
-{
-public:
-	MainFrame(wxString Screen);
-	MenuButton *ButtonHome;
-	MenuButton *ButtonRace;
-	MenuButton *ButtonHelp;
+private:
+	Simulator* sim;
+	wxMenuBar* MenuBar;
+	void OnConnect(wxCommandEvent& event);
+	void OnDisconnect(wxCommandEvent& event);
 
-	void HomeWindow(wxCommandEvent& event);
 	DECLARE_EVENT_TABLE()
 };
 
 enum
 {
-	BUTTON_HOME = wxID_HIGHEST +1,
-	BUTTON_RACE,
-	BUTTON_HELP
+	MENU_CONNECT = wxID_HIGHEST +1,
+	MENU_DISCONNECT
 };
 
 #endif
