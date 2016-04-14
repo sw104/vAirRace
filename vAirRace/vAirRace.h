@@ -9,7 +9,7 @@ const wxString VersionNumber = "V0.0.1";
 class vAirRace : public wxApp
 {
 public:
-	virtual bool OnInit();
+    virtual bool OnInit();
 };
 
 #endif
