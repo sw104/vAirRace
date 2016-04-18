@@ -8,6 +8,7 @@
 #endif
 
 #include "vAirRace.h"
+#include "Log.h"
 #include "Simulator.h"
 
 class MainWindow : public wxFrame
@@ -18,6 +19,7 @@ public:
 
 private:
     Simulator* sim;
+    Log* log;
     wxMenuBar* MenuBar;
     void OnConnect(wxCommandEvent& event);
     void OnDisconnect(wxCommandEvent& event);

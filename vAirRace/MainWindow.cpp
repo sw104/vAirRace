@@ -4,6 +4,7 @@
 MainWindow::MainWindow(wxString Screen): wxFrame((wxFrame*) NULL, -1, wxT("vAirRace Version ") + VersionNumber, wxDefaultPosition, wxSize(600,425))
 {
     sim = new Simulator();
+    log = new Log();
     CreateStatusBar(1);
     MenuBar = new wxMenuBar();
     wxMenu *SimulatorMenu = new wxMenu();
@@ -44,7 +45,11 @@ void MainWindow::OnConnect(wxCommandEvent& event)
     if (errorCode == 0)
         SetStatusText("Connected to simulator");
     else
-        SetStatusText("Failed to connect to simulator with error code " + errorCode);
+    {
+        std::string message = "Failed to connect to simulator with error code " + std::to_string(errorCode);
+        SetStatusText(message);
+        log->write(message);
+    }
 }
 
 void MainWindow::OnDisconnect(wxCommandEvent& event)
