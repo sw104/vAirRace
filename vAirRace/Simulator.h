@@ -8,6 +8,8 @@
 
 class Simulator
 {
+private:
+    bool isConnected = false;   //Is there a connection to the simulator.
 public:
     Simulator();
     ~Simulator();   //Destructor - disconnects from simulator.   
@@ -17,6 +19,7 @@ public:
     int Read(unsigned int offset, unsigned int size, void* destination);  //Adds a read call of offset to destination to queue.
     int Write(unsigned int offset, unsigned int size, void* source);  //Adds write call from source to offset to queue.
     int Process();    //Process queued read and writes.
+    bool ConnectionStatus(); //Get status of connection to simulator.
 };
 
 #endif

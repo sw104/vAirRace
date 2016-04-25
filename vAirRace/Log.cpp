@@ -2,9 +2,10 @@
 
 #include "Log.h"
 
-Log::Log(bool isTimeStamped, bool isConsoleLog, bool isLogFile, std::string logName)
+Log::Log(bool isTimeStamped, bool isMessageTyped, bool isConsoleLog, bool isLogFile, std::string logName)
 {
     this->isTimeStamped = isTimeStamped;
+    this->isMessageTyped = isMessageTyped;
     this->isConsoleLog = isConsoleLog;
     this->isLogFile = isLogFile;
     //Append the log file if it already exists.
@@ -18,8 +19,9 @@ Log::~Log()
         file.close();
 }
 
-void Log::write(std::string logData)
+void Log::write(std::string logData, std::string messageType)
 {
+    messageType.append(": ");
     if (isTimeStamped)
     {
         std::time_t t = std::time(NULL);
@@ -27,15 +29,15 @@ void Log::write(std::string logData)
         gmtime_s(&buf, &t);
         //Write timestamped entry.
         if (isLogFile)
-            file << std::put_time(&buf, "%c %Z") << ": " << logData << std::endl;
+            file << std::put_time(&buf, "%c %Z") << ": " << ((isMessageTyped) ? (messageType) : ("")) << logData << std::endl;
         if (isConsoleLog)
-            std::cout << std::put_time(&buf, "%c %Z") << ": " << logData << std::endl;
+            std::cout << std::put_time(&buf, "%c %Z") << ": " << ((isMessageTyped) ? (messageType) : ("")) << logData << std::endl;
     }
     else
     {
         if (isLogFile)
-            file << logData << std::endl;
+            file << ((isMessageTyped) ? (messageType) : ("")) << logData << std::endl;
         if (isConsoleLog)
-            std::cout << logData << std::endl;
+            std::cout << ((isMessageTyped) ? (messageType) : ("")) << logData << std::endl;
     }
 }

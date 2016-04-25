@@ -21,6 +21,7 @@ private:
     Simulator* sim;
     Log* log;
     wxMenuBar* MenuBar;
+    //Menu bar event handlers.
     void OnConnect(wxCommandEvent& event);
     void OnDisconnect(wxCommandEvent& event);
     void OnReset(wxCommandEvent& event);

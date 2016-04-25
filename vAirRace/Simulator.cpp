@@ -8,6 +8,7 @@ Simulator::Simulator()
 Simulator::~Simulator()
 {
     Disconnect();
+    isConnected = false;
 }
 
 int Simulator::Connect()
@@ -15,13 +16,17 @@ int Simulator::Connect()
 	//Ensure any previous connections are closed first then connect to simulator.
 	DWORD result;
     FSUIPC_Close();
-	FSUIPC_Open(SIM_ANY, &result);
+    if (FSUIPC_Open(SIM_ANY, &result) == TRUE)
+        isConnected = true;
+    else
+        isConnected = false;
     return static_cast<int>(result);
 }
 
 void Simulator::Disconnect()
 {
     FSUIPC_Close();
+    isConnected = false;
 }
 
 int Simulator::Reset()
@@ -51,4 +56,9 @@ int Simulator::Process()
     DWORD result;
     FSUIPC_Process(&result);
     return static_cast<int>(result);
+}
+
+bool Simulator::ConnectionStatus()
+{
+    return isConnected;
 }

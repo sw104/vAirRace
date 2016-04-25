@@ -1,11 +1,13 @@
 //Main Window class implementation.
 #include "MainWindow.h"
 
-MainWindow::MainWindow(wxString Screen): wxFrame((wxFrame*) NULL, -1, wxT("vAirRace Version ") + VersionNumber, wxDefaultPosition, wxSize(600,425))
+MainWindow::MainWindow(wxString Screen): wxFrame((wxFrame*) NULL, -1, "vAirRace Version " + VersionNumber, wxDefaultPosition, wxSize(600,425))
 {
     sim = new Simulator();
-    log = new Log();
+    log = new Log(true, true);
+    log->write("Application started", "Application Status");
     CreateStatusBar(1);
+    //Set up menu items.
     MenuBar = new wxMenuBar();
     wxMenu *SimulatorMenu = new wxMenu();
     SimulatorMenu->Append(SIMMENU_CONNECT, "&Connect", "Connect to simulator");
@@ -28,7 +30,9 @@ MainWindow::MainWindow(wxString Screen): wxFrame((wxFrame*) NULL, -1, wxT("vAirR
 
 MainWindow::~MainWindow()
 {
+    log->write("Application terminated", "Application Status");
     delete sim;
+    delete log;
 }
 
 BEGIN_EVENT_TABLE(MainWindow, wxFrame)
@@ -39,16 +43,17 @@ END_EVENT_TABLE()
 
 void MainWindow::OnConnect(wxCommandEvent& event)
 {
-    int errorCode;
     sim->Disconnect();
-    errorCode = sim->Connect();
+    int errorCode = sim->Connect();
     if (errorCode == 0)
-        SetStatusText("Connected to simulator");
+    {
+        SetStatusText("Simulator: Connected");
+        log->write("Connected", "Simulator Status");
+    }
     else
     {
-        std::string message = "Failed to connect to simulator with error code " + std::to_string(errorCode);
-        SetStatusText(message);
-        log->write(message);
+        SetStatusText("Simulator: Connection failed - error code " + std::to_string(errorCode));
+        log->write("Failed to connect - error code " + std::to_string(errorCode), "Simulator Error");
     }
 }
 
@@ -56,11 +61,31 @@ void MainWindow::OnDisconnect(wxCommandEvent& event)
 {
     //TODO: Clear resource states.
     sim->Disconnect();
-    SetStatusText("Disconnected from simulator");
+    SetStatusText("Simulator: Disconnected");
+    log->write("Disconnected", "Simulator Status");
 }
 
 void MainWindow::OnReset(wxCommandEvent& event)
 {
-    //TODO: Reset resource states.
-    sim->Reset();
+    if (sim->ConnectionStatus())
+    {
+        int errorCode = sim->Reset();
+        if (errorCode == 0)
+        {
+            //TODO: Reset resource states.
+            SetStatusText("Simulator: Connected - Reset successful");
+            log->write("Connection reset", "Simulator Status");
+        }
+        else
+        {
+            //TODO: Clear resource states.
+            SetStatusText("Simulator: Connection failed - error code " + std::to_string(errorCode));
+            log->write("Failed to connect - error code " + std::to_string(errorCode), "Simulator Error");
+        }
+    }
+    else
+    {
+        SetStatusText("Simulator: Disconnected - Can't reset non-existant connection");
+        log->write("Can't reset non-existant connection", "Simulator Error");
+    }
 }
