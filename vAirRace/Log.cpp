@@ -1,5 +1,4 @@
 //Logging class implementation.
-
 #include "Log.h"
 
 Log::Log(bool isTimeStamped, bool isMessageTyped, bool isConsoleLog, bool isLogFile, std::string logName)
