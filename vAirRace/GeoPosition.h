@@ -6,10 +6,9 @@ template<typename t_coordinate>
 class GeoPosition
 {
 protected:
-    t_coordinate m_lat, m_lon;
+    t_coordinate m_lat, m_lon;  //Latitude and Longitude parameters.
 public:
-    GeoPosition();
-    GeoPosition(t_coordinate lat, t_coordinate lon);
+    GeoPosition(t_coordinate lat = 0, t_coordinate lon = 0);
 
     //Accessors and setters.
     void lat(t_coordinate lat);
@@ -18,11 +17,7 @@ public:
     t_coordinate lon() const;
 };
 
-//GeoPosition class implementation.
-
-template<typename t_coordinate>
-GeoPosition<t_coordinate>::GeoPosition()
-{}
+//GeoPosition template class implementation.
 
 template<typename t_coordinate>
 GeoPosition<t_coordinate>::GeoPosition(t_coordinate lat, t_coordinate lon)

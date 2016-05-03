@@ -19,7 +19,10 @@ double Rectangle::perimeter() const
 
 void Rectangle::width(double width)
 {
-    m_width = width;
+    //Sanity check input.
+    if (width > 0)
+        m_width = width;
+    //TODO: else set error state.
 }
 
 double Rectangle::width() const
@@ -29,7 +32,10 @@ double Rectangle::width() const
 
 void Rectangle::length(double length)
 {
-    m_length = length;
+    //Sanity check input.
+    if (length > 0)
+        m_length = length;
+    //TODO: else set error state.
 }
 
 double Rectangle::length() const

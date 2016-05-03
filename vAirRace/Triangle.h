@@ -8,7 +8,7 @@
 class Triangle : Object
 {
 private:
-    double m_width, m_height;
+    double m_width, m_height; //Width of traingle base and perpendicular height.
 
 public:
     Triangle(double width = 0, double height = 0);

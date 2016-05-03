@@ -21,7 +21,10 @@ double Triangle::perimeter() const
 
 void Triangle::width(double width)
 {
-    m_width = width;
+    //Sanity check input:
+    if (width > 0)
+        m_width = width;
+    //TODO: else set error state.
 }
 
 double Triangle::width() const
@@ -31,7 +34,10 @@ double Triangle::width() const
 
 void Triangle::height(double height)
 {
-    m_height = height;
+    //Sanity check input:
+    if (height > 0)
+        m_height = height;
+    //TODO: else set error state.
 }
 
 double Triangle::height() const

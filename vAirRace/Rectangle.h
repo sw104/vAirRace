@@ -7,12 +7,14 @@
 class Rectangle : Object
 {
 private:
-    double m_width, m_length;
+    double m_width, m_length;   //Rectangle width and length.
 
 public:
     Rectangle(double width = 0, double length = 0);
+    
     double area() const;
     double perimeter() const;
+    bool isTouching(Object* object;
 
     //Accessors and setters.
     void width(double width);

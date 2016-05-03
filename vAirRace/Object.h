@@ -2,8 +2,6 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-#include "GeoPosition.h"
-
 class Object  //Object position class.
 {
 
@@ -15,9 +13,12 @@ private:
     double m_pitch;  //Object pitch - positive for up, negaitive for down (in degrees).
 
 public:
-    virtual double area() = 0;  //Area/Surface area of object.
-    virtual bool isBetween(Object*, Object*) = 0;   //Is current object between the two given objects.
+    //Abstract methods:
+    virtual double area() const = 0;  //Area/Surface area of object.
     virtual bool isTouching(Object*) = 0;   //Is the current object touching the given object.
+
+    //Implemented methods:
+    virtual bool isBetween(Object* object1, Object* object2);   //Is current object between the two given objects - no buffer tolarence is built in.
 
     //Accessors and setters:
     void altitude(double altitude);
@@ -28,13 +29,12 @@ public:
     double heading() const;
     void pitch(double pitch);
     double pitch() const;
-    void position(long double x, long double y);
+    virtual void position(long double x, long double y);
     void x(long double x);
     long double x() const;
     void y(long double y);
     long double y() const;
 
 };
-
 
 #endif
