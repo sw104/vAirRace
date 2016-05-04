@@ -14,7 +14,7 @@ public:
     
     double area() const;
     double perimeter() const;
-    bool isTouching(Object* object;
+    //bool isTouching(Object* object);
 
     //Accessors and setters.
     void width(double width);

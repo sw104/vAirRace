@@ -24,7 +24,8 @@ void Triangle::width(double width)
     //Sanity check input:
     if (width > 0)
         m_width = width;
-    //TODO: else set error state.
+    else
+        throw std::invalid_argument("Triangle width cannot be negative");
 }
 
 double Triangle::width() const
@@ -37,7 +38,8 @@ void Triangle::height(double height)
     //Sanity check input:
     if (height > 0)
         m_height = height;
-    //TODO: else set error state.
+    else
+        throw std::invalid_argument("Triangle height cannot be negative");
 }
 
 double Triangle::height() const

@@ -22,7 +22,8 @@ void Rectangle::width(double width)
     //Sanity check input.
     if (width > 0)
         m_width = width;
-    //TODO: else set error state.
+    else
+        throw std::invalid_argument("Rectangle width cannot be negative");
 }
 
 double Rectangle::width() const
@@ -35,7 +36,8 @@ void Rectangle::length(double length)
     //Sanity check input.
     if (length > 0)
         m_length = length;
-    //TODO: else set error state.
+    else
+        throw std::invalid_argument("Rectangle length cannot be negative");
 }
 
 double Rectangle::length() const

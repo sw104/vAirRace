@@ -2,6 +2,8 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
+#include <stdexcept>
+
 class Object  //Object position class.
 {
 
